@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.zero/test/alex"
+		xmlns:tns="http://www.zero/test/alex"
+		elementFormDefault="qualified">
+	<element name="user">
+		<complexType>
+			<attribute name="uname" type="string"></attribute>
+			<attribute name="gender" type="string"></attribute>
+		</complexType>
+	</element>
+
+</schema>
