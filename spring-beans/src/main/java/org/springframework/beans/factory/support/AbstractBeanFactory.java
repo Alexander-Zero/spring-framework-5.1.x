@@ -283,9 +283,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 		// Eagerly check singleton cache for manually registered singletons.
 		//从缓存中加载单例Bean
+		//如果存在该单例，则返回，不存在则返回早期依赖，不返回ObjectFactory，只有可能返回ObjectFactory.getObject()
+		// SingletonObjects -》 earlySingletonObjects -> singletonFactoryObjects）
 		Object sharedInstance = getSingleton(beanName);
+		//args: (only applied when creating a new instance as opposed to retrieving an existing one)
 		if (sharedInstance != null && args == null) {
-
 			if (logger.isTraceEnabled()) {
 				if (isSingletonCurrentlyInCreation(beanName)) {
 					logger.trace("Returning eagerly cached instance of singleton bean '" + beanName +
@@ -298,12 +300,15 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		} else {
 			// Fail if we're already creating this bean instance:
 			// We're assumably within a circular reference.
+			// A-> B -> A  循环依赖情况
 			if (isPrototypeCurrentlyInCreation(beanName)) {
 				throw new BeanCurrentlyInCreationException(beanName);
 			}
 
 			// Check if bean definition exists in this factory.
 			BeanFactory parentBeanFactory = getParentBeanFactory();
+			//containsBeanDefinition() -> DefaultListableBeanFactory.beanDefinitionMap.get()
+			//xml文件中无beanDefinition的相关信息
 			if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
 				// Not found -> check parent.
 				String nameToLookup = originalBeanName(name);
@@ -335,6 +340,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				String[] dependsOn = mbd.getDependsOn();
 				if (dependsOn != null) {
 					for (String dep : dependsOn) {
+						//A -> B -> A 循环依赖
 						if (isDependent(beanName, dep)) {
 							throw new BeanCreationException(mbd.getResourceDescription(), beanName,
 									"Circular depends-on relationship between '" + beanName + "' and '" + dep + "'");
@@ -352,6 +358,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				// Create bean instance.
 				if (mbd.isSingleton()) {
 					// () ->{} ;这里返回的是参数中 抽象方法的实现
+					//public Object getSingleton(String beanName, ObjectFatcory<?> singletonFactory)
 					sharedInstance = getSingleton(beanName, () -> {
 						try {
 							//这里返回的是对这里需要的参数（ObjectFacotory）抽象方法（getObject）的实现
@@ -1657,10 +1664,10 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * Get the object for the given bean instance, either the bean
 	 * instance itself or its created object in case of a FactoryBean.
 	 *
-	 * @param beanInstance the shared bean instance
-	 * @param name         name that may include factory dereference prefix
-	 * @param beanName     the canonical bean name
-	 * @param mbd          the merged bean definition
+	 * @param beanInstance the shared bean instance： bean 或 beanFactory
+	 * @param name         name that may include factory dereference prefix: 用于判断想要获得的是factoryBean本身，还是其getBean()返回的bean
+	 * @param beanName     the canonical bean name:
+	 * @param mbd          the merged bean definition: 用于判断是否是 用户定义的bean，若是，需要进行后处理。系统生成的bean不需要后置处理
 	 * @return the object to expose for the bean
 	 */
 	protected Object getObjectForBeanInstance(

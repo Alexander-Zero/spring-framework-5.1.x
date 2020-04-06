@@ -67,7 +67,7 @@ import org.springframework.util.StringUtils;
 /**
  * Delegate for resolving constructors and factory methods.
  * Performs constructor resolution through argument matching.
- *
+ *Performs: 执行
  * @author Juergen Hoeller
  * @author Rob Harrop
  * @author Mark Fisher
@@ -118,6 +118,7 @@ class ConstructorResolver {
 			@Nullable Constructor<?>[] chosenCtors, @Nullable Object[] explicitArgs) {
 
 		BeanWrapperImpl bw = new BeanWrapperImpl();
+		//??
 		this.beanFactory.initBeanWrapper(bw);
 
 		Constructor<?> constructorToUse = null;
@@ -127,7 +128,9 @@ class ConstructorResolver {
 		if (explicitArgs != null) {
 			argsToUse = explicitArgs;
 		}
+		//从缓存中找构造方法和参数（以前解析过的情况）
 		else {
+			//argsToResolve非最终参数，可能涉及类型转换，String -> int or int -> String for example
 			Object[] argsToResolve = null;
 			synchronized (mbd.constructorArgumentLock) {
 				constructorToUse = (Constructor<?>) mbd.resolvedConstructorOrFactoryMethod;
@@ -140,6 +143,7 @@ class ConstructorResolver {
 				}
 			}
 			if (argsToResolve != null) {
+				//类型转换
 				argsToUse = resolvePreparedArguments(beanName, mbd, bw, constructorToUse, argsToResolve, true);
 			}
 		}
@@ -160,6 +164,7 @@ class ConstructorResolver {
 				}
 			}
 
+			//只有一个空参构造
 			if (candidates.length == 1 && explicitArgs == null && !mbd.hasConstructorArgumentValues()) {
 				Constructor<?> uniqueCandidate = candidates[0];
 				if (uniqueCandidate.getParameterCount() == 0) {
@@ -282,6 +287,7 @@ class ConstructorResolver {
 		}
 
 		Assert.state(argsToUse != null, "Unresolved constructor arguments");
+		//参数完全匹配的情况
 		bw.setBeanInstance(instantiate(beanName, mbd, constructorToUse, argsToUse));
 		return bw;
 	}

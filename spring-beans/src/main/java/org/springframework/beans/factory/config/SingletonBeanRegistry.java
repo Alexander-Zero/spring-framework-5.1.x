@@ -126,6 +126,7 @@ public interface SingletonBeanRegistry {
 	int getSingletonCount();
 
 	/**
+	 * 返回 singleton容器的互斥量,外部装配使用
 	 * Return the singleton mutex used by this registry (for external collaborators).
 	 * @return the mutex object (never {@code null})
 	 * @since 4.2

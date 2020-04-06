@@ -27,6 +27,7 @@ import org.springframework.lang.Nullable;
  * @author Juergen Hoeller
  * @since 2.0
  */
+//Reader上下文
 public class ReaderContext {
 
 	private final Resource resource;
@@ -152,6 +153,7 @@ public class ReaderContext {
 	// Explicit parse events
 
 	/**
+	 * fire 报警
 	 * Fire an defaults-registered event.
 	 */
 	public void fireDefaultsRegistered(DefaultsDefinition defaultsDefinition) {

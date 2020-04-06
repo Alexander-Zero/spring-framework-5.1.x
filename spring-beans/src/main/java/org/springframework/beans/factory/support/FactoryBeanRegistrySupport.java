@@ -93,7 +93,7 @@ public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanReg
 	 * @throws BeanCreationException if FactoryBean object creation failed
 	 * @see org.springframework.beans.factory.FactoryBean#getObject()
 	 */
-	//工厂bean中获取真正需要的bean，shouldPostProcess 和 是否合成？？rootBeanDefinition??
+	//工厂bean中获取真正需要的bean，shouldPostProcess 和 是否合成？？rootBeanDefinition?? 自定义的Bean需要进行后处理
 	protected Object getObjectFromFactoryBean(FactoryBean<?> factory, String beanName, boolean shouldPostProcess) {
 		//单例 且 singletonObjects容器中 有此缓存
 		if (factory.isSingleton() && containsSingleton(beanName)) {

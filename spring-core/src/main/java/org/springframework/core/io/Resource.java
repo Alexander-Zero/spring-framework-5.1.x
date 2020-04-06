@@ -49,6 +49,7 @@ import org.springframework.lang.Nullable;
  * @see ByteArrayResource
  * @see InputStreamResource
  */
+//存在性,可读性,是否打开 ,getFile() 和 getURI
 public interface Resource extends InputStreamSource {
 
 	/**

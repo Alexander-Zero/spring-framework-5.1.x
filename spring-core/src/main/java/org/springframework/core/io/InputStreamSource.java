@@ -38,6 +38,8 @@ import java.io.InputStream;
  * @see InputStreamResource
  * @see ByteArrayResource
  */
+
+//对可以获取输入流 对象进行封装
 public interface InputStreamSource {
 
 	/**
