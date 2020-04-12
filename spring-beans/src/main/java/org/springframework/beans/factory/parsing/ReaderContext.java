@@ -27,7 +27,8 @@ import org.springframework.lang.Nullable;
  * @author Juergen Hoeller
  * @since 2.0
  */
-//Reader上下文
+//Reader上下文, 封装读取过程中的配置及状态
+//打印过程中出现的错误及监听解析状态
 public class ReaderContext {
 
 	private final Resource resource;

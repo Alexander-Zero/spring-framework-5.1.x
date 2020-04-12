@@ -46,6 +46,14 @@ import org.springframework.util.Assert;
  * @since 11.12.2003
  * @see BeanDefinitionReaderUtils
  */
+
+/**
+ * ResourceLoader默认实现 PathMatchingResourcePatternResolver
+ * Environment默认实现StandardEnvironment
+ * ClassLoader无默认实现,但ResourceLoader中有getClassLoader方法
+ * BeanDefinitionRegistry有参构造传入, 没有无参构造
+ * 最核心的方法是loadBeanDefinitions(Resource resource),其他的都调用这个方法,该方法未实现
+ */
 public abstract class AbstractBeanDefinitionReader implements BeanDefinitionReader, EnvironmentCapable {
 
 	/** Logger available to subclasses. */
@@ -61,6 +69,8 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 
 	private Environment environment;
 
+	//innerBean: beanDefinition hashCode的16进制数, not InnerBean : 01234567
+	//beanName = [ className , parentName + $child  , factoryBeanName + $create ] + # + [  OFFXXX   , 012345678 ]
 	private BeanNameGenerator beanNameGenerator = new DefaultBeanNameGenerator();
 
 
@@ -88,16 +98,14 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 		// Determine ResourceLoader to use.
 		if (this.registry instanceof ResourceLoader) {
 			this.resourceLoader = (ResourceLoader) this.registry;
-		}
-		else {
+		} else {
 			this.resourceLoader = new PathMatchingResourcePatternResolver();
 		}
 
 		// Inherit Environment if possible
 		if (this.registry instanceof EnvironmentCapable) {
 			this.environment = ((EnvironmentCapable) this.registry).getEnvironment();
-		}
-		else {
+		} else {
 			this.environment = new StandardEnvironment();
 		}
 	}
@@ -191,6 +199,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 	}
 
 	@Override
+	//location可能是多个放在一起的, 比如用 标识符 隔开
 	public int loadBeanDefinitions(String location) throws BeanDefinitionStoreException {
 		return loadBeanDefinitions(location, null);
 	}
@@ -210,6 +219,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 	 * @see #loadBeanDefinitions(org.springframework.core.io.Resource)
 	 * @see #loadBeanDefinitions(org.springframework.core.io.Resource[])
 	 */
+	//actualResources是resource的容器,再本方法中只是往该容器中添加location对应的resource而已.
 	public int loadBeanDefinitions(String location, @Nullable Set<Resource> actualResources) throws BeanDefinitionStoreException {
 		ResourceLoader resourceLoader = getResourceLoader();
 		if (resourceLoader == null) {

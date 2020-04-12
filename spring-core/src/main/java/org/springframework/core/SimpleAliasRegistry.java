@@ -220,8 +220,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 			if (resolvedName != null) {
 				canonicalName = resolvedName;
 			}
-		}
-		while (resolvedName != null);
+		}while (resolvedName != null);
 		return canonicalName;
 	}
 

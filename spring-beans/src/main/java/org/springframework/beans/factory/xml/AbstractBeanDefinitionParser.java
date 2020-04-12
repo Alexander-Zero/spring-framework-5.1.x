@@ -78,9 +78,11 @@ public abstract class AbstractBeanDefinitionParser implements BeanDefinitionPars
 				}
 				BeanDefinitionHolder holder = new BeanDefinitionHolder(definition, id, aliases);
 				registerBeanDefinition(holder, parserContext.getRegistry());
+				//??? 不清楚作用
 				if (shouldFireEvents()) {
 					BeanComponentDefinition componentDefinition = new BeanComponentDefinition(holder);
 					postProcessComponentDefinition(componentDefinition);
+					//该方法中有fireComponentRegistered()方法
 					parserContext.registerComponent(componentDefinition);
 				}
 			}

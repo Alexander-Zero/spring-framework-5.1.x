@@ -42,7 +42,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
 
 /**
- * Helper class that encapsulates the specification of a method parameter, i.e. a {@link Method}
+ * Helper class that encapsulates the specification(詳述) of a method parameter, i.e. a {@link Method}
  * or {@link Constructor} plus a parameter index and a nested type index for a declared generic
  * type. Useful as a specification object to pass along.
  *

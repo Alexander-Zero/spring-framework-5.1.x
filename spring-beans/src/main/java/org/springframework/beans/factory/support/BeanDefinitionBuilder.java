@@ -34,6 +34,7 @@ import org.springframework.util.ObjectUtils;
  * @author Juergen Hoeller
  * @since 2.0
  */
+//builder模式是设置属性后返回的对象都是其本身， 最后提供一个build方法获取 里面包裹的对象
 public final class BeanDefinitionBuilder {
 
 	/**

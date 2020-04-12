@@ -36,7 +36,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
 
 /**
- * Contextual descriptor about a type to convert from or to.
+ * Contextual(上下文的) descriptor about a type to convert from or to.
  * Capable of representing arrays and generic collection types.
  *
  * @author Keith Donald

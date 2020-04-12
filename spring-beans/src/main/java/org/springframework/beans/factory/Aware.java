@@ -27,11 +27,12 @@ package org.springframework.beans.factory;
  * {@link org.springframework.beans.factory.config.BeanPostProcessor}.
  * Refer to {@link org.springframework.context.support.ApplicationContextAwareProcessor}
  * for an example of processing specific {@code *Aware} interface callbacks.
- *
+ * @see BeanNameAware
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.1
  */
+//Aware感知的,一般实现Aware接口的后能获取相应的容器信息
 public interface Aware {
 
 }

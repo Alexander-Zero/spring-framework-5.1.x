@@ -118,6 +118,7 @@ public interface ComponentDefinition extends BeanMetadataElement {
 	 * to be needed for validation or for user visualization.
 	 * @return the array of BeanReferences, or an empty array if none
 	 */
+	// getInnerBeanDefinitions() = getBeanDefinitions() + getBeanReferences();
 	BeanReference[] getBeanReferences();
 
 }

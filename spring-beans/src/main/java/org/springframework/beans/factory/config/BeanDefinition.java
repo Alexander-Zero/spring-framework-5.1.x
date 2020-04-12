@@ -37,6 +37,9 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.beans.factory.support.RootBeanDefinition
  * @see org.springframework.beans.factory.support.ChildBeanDefinition
  */
+//AttributeAccessor 存、取、移除 attr,存在？attributeNames(),
+//BeanMetadataElement getSource(),对应元数据标签？
+//Return the configuration source Object for this metadata element
 public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**

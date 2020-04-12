@@ -30,11 +30,13 @@ package org.springframework.beans;
  * @see PropertyEditorRegistry
  * @see java.beans.PropertyEditor
  */
+//
 public interface PropertyEditorRegistrar {
 
 	/**
 	 * Register custom {@link java.beans.PropertyEditor PropertyEditors} with
 	 * the given {@code PropertyEditorRegistry}.
+	 * passed-in 传入的
 	 * <p>The passed-in registry will usually be a {@link BeanWrapper} or a
 	 * {@link org.springframework.validation.DataBinder DataBinder}.
 	 * <p>It is expected that implementations will create brand new

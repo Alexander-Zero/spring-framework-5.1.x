@@ -1,5 +1,6 @@
 package org.springframework.alexander;
 
+import org.apache.catalina.core.ApplicationContext;
 import org.junit.Test;
 import org.springframework.alexander.model.MyBean;
 import org.springframework.beans.factory.BeanFactory;
@@ -18,6 +19,7 @@ public class MyTest {
 	public void loadBeanTest() {
 		String path = "config/MyBean.xml";
 		BeanFactory bf = new XmlBeanFactory(new ClassPathResource(path));
+//		ApplicationContext context  = new classpathxm
 		MyBean bean = (MyBean) bf.getBean("myBean");
 		String beanAge = bean.getBeanAge();
 		String beanMember = bean.getBeanMember();
