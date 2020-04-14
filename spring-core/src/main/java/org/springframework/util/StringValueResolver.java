@@ -29,6 +29,7 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.beans.factory.config.PropertyPlaceholderConfigurer
  */
 @FunctionalInterface
+//如替换变量
 public interface StringValueResolver {
 
 	/**

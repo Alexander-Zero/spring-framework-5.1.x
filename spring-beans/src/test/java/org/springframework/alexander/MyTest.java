@@ -17,6 +17,8 @@ import javax.annotation.security.RunAs;
 public class MyTest {
 	@Test
 	public void loadBeanTest() {
+
+		//一个xml文件对应一个beanFactory吗? 平时用的项目会有多少个beanFactory还是一个???
 		String path = "config/MyBean.xml";
 		BeanFactory bf = new XmlBeanFactory(new ClassPathResource(path));
 //		ApplicationContext context  = new classpathxm

@@ -310,7 +310,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			// Check if bean definition exists in this factory.
 			BeanFactory parentBeanFactory = getParentBeanFactory();
 			//containsBeanDefinition() -> DefaultListableBeanFactory.beanDefinitionMap.get()
-			//xml文件中无beanDefinition的相关信息
+			//parent与child 并不在同一个容器中???什么情况下存在这样的情况????
 			if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
 				// Not found -> check parent.
 				String nameToLookup = originalBeanName(name);
@@ -328,6 +328,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				}
 			}
 
+			//???
 			if (!typeCheckOnly) {
 				//添加alreadyCreated容器
 				markBeanAsCreated(beanName);
@@ -336,6 +337,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			try {
 				//将GeneriticBeanDefinition转换为RootBeanDefinition,先通过beanName找到beanDefinition
 				final RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
+
 				checkMergedBeanDefinition(mbd, beanName, args);
 
 				// Guarantee initialization of beans that the current bean depends on.
